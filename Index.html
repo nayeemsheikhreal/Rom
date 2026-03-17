@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sunstone ROM Guide — Redmi Note 12 5G</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Noto+Sans+Bengali:wght@300;400;500;600&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --white:#ffffff;--off:#f8f6f1;--cream:#f2ede4;--sand:#e8dfd0;--stone:#d4c9b8;
+  --ink:#1a1612;--ink2:#3d3530;--ink3:#6b5f55;--ink4:#9c9088;
+  --accent:#c8440a;--accent2:#e85a1e;--accentL:#fdf1eb;
+  --blue:#1a4a8a;--blueL:#edf2fa;
+  --green:#1a6b3a;--greenL:#edf7f1;
+  --amber:#b05c00;--amberL:#fdf4e8;
+  --red:#b01a2a;--redL:#fdeef0;
+  --shadow-sm:0 1px 3px rgba(26,22,18,.06),0 1px 2px rgba(26,22,18,.04);
+  --shadow-md:0 4px 16px rgba(26,22,18,.08),0 2px 6px rgba(26,22,18,.05);
+  --shadow-lg:0 12px 40px rgba(26,22,18,.10),0 4px 12px rgba(26,22,18,.06);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--off);color:var(--ink);font-family:'Noto Sans Bengali','DM Sans',sans-serif;font-size:15px;line-height:1.75;-webkit-font-smoothing:antialiased}
+body.en{font-family:'DM Sans',sans-serif}
+
+/* ── LANGUAGE SYSTEM ── */
+.L{display:none!important}
+body.bn .bn{display:initial!important}
+body.bn .bn-b{display:block!important}
+body.bn .bn-f{display:flex!important}
+body.en .en{display:initial!important}
+body.en .en-b{display:block!important}
+body.en .en-f{display:flex!important}
+
+#pg{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));z-index:1000;transition:width .1s;box-shadow:0 0 8px rgba(200,68,10,.4)}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(248,246,241,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--sand);height:64px;display:flex;align-items:center;padding:0 max(20px,calc(50% - 560px))}
+.nav-logo{display:flex;align-items:center;gap:10px;margin-right:auto;text-decoration:none}
+.nav-box{width:34px;height:34px;background:var(--ink);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;color:#fff}
+.nav-name{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--ink)}
+.nav-name span{color:var(--accent)}
+.nav-links{display:flex;gap:2px;list-style:none}
+.nav-links a{color:var(--ink3);text-decoration:none;font-size:13px;font-weight:500;padding:7px 13px;border-radius:7px;transition:all .18s}
+.nav-links a:hover{color:var(--ink);background:var(--cream)}
+
+/* LANGUAGE TOGGLE */
+.lang-wrap{margin-left:16px;flex-shrink:0}
+.lang-toggle{display:flex;background:var(--cream);border:1px solid var(--sand);border-radius:50px;padding:4px;gap:3px}
+.lb{padding:7px 16px;border:none;background:transparent;border-radius:50px;font-family:'DM Mono',monospace;font-size:12px;font-weight:600;cursor:pointer;color:var(--ink3);transition:all .22s;letter-spacing:.5px;line-height:1}
+.lb.on{background:var(--ink);color:#fff;box-shadow:var(--shadow-sm)}
+.lb:not(.on):hover{background:var(--white);color:var(--ink)}
+
+/* HERO */
+.hero{position:relative;padding:108px max(20px,calc(50% - 560px)) 64px;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 70% 55% at 65% 45%,rgba(200,68,10,.05) 0%,transparent 70%),linear-gradient(180deg,var(--off) 0%,var(--cream) 100%);pointer-events:none}
+.hero-bg::after{content:'';position:absolute;inset:0;background-image:repeating-linear-gradient(-45deg,transparent,transparent 40px,rgba(200,68,10,.022) 40px,rgba(200,68,10,.022) 41px);pointer-events:none}
+.hero-inner{position:relative;z-index:1;max-width:700px}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;background:var(--white);border:1px solid var(--sand);border-radius:50px;padding:6px 18px 6px 8px;margin-bottom:28px;box-shadow:var(--shadow-sm)}
+.eyebrow-dot{width:28px;height:28px;background:var(--accentL);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px}
+.eyebrow-txt{font-family:'DM Mono',monospace;font-size:11px;color:var(--accent);font-weight:500;letter-spacing:.8px}
+h1{font-family:'Playfair Display',serif;font-size:clamp(36px,5.5vw,62px);font-weight:800;line-height:1.08;letter-spacing:-1.5px;color:var(--ink);margin-bottom:18px}
+h1 em{font-style:italic;color:var(--accent)}
+.hero-p{font-size:17px;color:var(--ink3);max-width:520px;margin-bottom:36px;line-height:1.65}
+.chips{display:flex;flex-wrap:wrap;gap:9px}
+.chip{display:inline-flex;align-items:center;gap:7px;background:var(--white);border:1px solid var(--sand);border-radius:50px;padding:7px 16px;font-size:12.5px;font-weight:500;color:var(--ink2);box-shadow:var(--shadow-sm)}
+.chip-d{width:7px;height:7px;border-radius:50%;background:var(--accent);flex-shrink:0}
+
+/* DEVICE */
+.dev-strip{padding:0 max(20px,calc(50% - 560px)) 52px}
+.dev-card{background:var(--white);border:1px solid var(--sand);border-radius:18px;box-shadow:var(--shadow-lg);overflow:hidden}
+.dev-top{background:var(--ink);padding:20px 28px;display:flex;align-items:center;gap:14px}
+.dev-icon{width:40px;height:40px;background:rgba(255,255,255,.1);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px}
+.dev-name{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:#fff}
+.dev-sub{font-family:'DM Mono',monospace;font-size:11px;color:rgba(255,255,255,.4);margin-top:2px}
+.dev-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr))}
+.dev-item{padding:16px 20px;border-right:1px solid var(--cream);border-bottom:1px solid var(--cream)}
+.dev-key{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--ink4);margin-bottom:4px}
+.dev-val{font-family:'DM Mono',monospace;font-size:13px;font-weight:500;color:var(--accent)}
+
+/* MAIN */
+.main{max-width:calc(1120px + 40px);margin:0 auto;padding:0 20px 90px}
+.sec{margin-bottom:68px}
+.sec-label{display:flex;align-items:center;gap:12px;margin-bottom:28px}
+.sec-num{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:2px;color:var(--accent);text-transform:uppercase;flex-shrink:0}
+.sec-line{flex:1;height:1px;background:var(--sand)}
+.sec-title{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;letter-spacing:-.5px;color:var(--ink);margin-bottom:5px;line-height:1.2}
+.sec-sub{font-size:13.5px;color:var(--ink4)}
+
+/* REQ */
+.req-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px}
+.req-card{background:var(--white);border:1px solid var(--sand);border-radius:11px;padding:15px 18px;display:flex;align-items:flex-start;gap:13px;box-shadow:var(--shadow-sm);transition:box-shadow .2s,transform .2s}
+.req-card:hover{box-shadow:var(--shadow-md);transform:translateY(-2px)}
+.req-ico{width:36px;height:36px;border-radius:9px;background:var(--accentL);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.req-t{font-weight:600;font-size:13.5px;color:var(--ink)}
+.req-d{font-size:12px;color:var(--ink4);margin-top:2px}
+
+/* STEPS */
+.steps{display:flex;flex-direction:column;gap:2px}
+.step{background:var(--white);border:1px solid var(--sand);border-radius:12px;overflow:hidden;box-shadow:var(--shadow-sm);transition:box-shadow .2s}
+.step:hover{box-shadow:var(--shadow-md)}
+.step-hd{display:flex;align-items:center;gap:16px;padding:18px 22px;cursor:pointer;user-select:none;transition:background .15s}
+.step-hd:hover{background:var(--off)}
+.step-badge{width:34px;height:34px;border-radius:8px;background:var(--ink);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:13px;font-weight:500;color:#fff;flex-shrink:0;transition:background .2s}
+.step.open .step-badge{background:var(--accent)}
+.step-meta{flex:1}
+.step-nm{font-size:14.5px;font-weight:600;color:var(--ink)}
+.step-ht{font-size:12px;color:var(--ink4);margin-top:2px}
+.step-cv{width:27px;height:27px;border-radius:7px;background:var(--cream);display:flex;align-items:center;justify-content:center;color:var(--ink3);font-size:12px;transition:transform .25s,background .15s;flex-shrink:0}
+.step.open .step-cv{transform:rotate(180deg);background:var(--accentL);color:var(--accent)}
+.step-bd{display:none;padding:0 22px 22px;border-top:1px solid var(--cream)}
+.step.open .step-bd{display:block}
+.slist{list-style:none;margin-top:16px;display:flex;flex-direction:column;gap:9px}
+.slist li{display:flex;gap:11px;align-items:flex-start;font-size:14px;color:var(--ink2)}
+.slist li::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent);margin-top:8px;flex-shrink:0}
+.slist li strong{color:var(--ink)}
+
+/* CODE */
+.code{background:var(--ink);border-radius:8px;padding:13px 16px;margin:12px 0;font-family:'DM Mono',monospace;font-size:13px;color:#e8dfd0;position:relative;overflow-x:auto;box-shadow:var(--shadow-md);white-space:pre}
+.code .ok{color:#7ee0a0}
+.cpbtn{position:absolute;top:9px;right:9px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.6);padding:3px 11px;border-radius:5px;font-family:'DM Mono',monospace;font-size:10px;cursor:pointer;transition:all .15s}
+.cpbtn:hover{background:rgba(255,255,255,.16);color:#fff}
+
+/* ALERTS */
+.al{border-radius:8px;padding:12px 15px;margin:12px 0;display:flex;gap:10px;align-items:flex-start;font-size:13.5px;line-height:1.6}
+.al-i{font-size:15px;flex-shrink:0;margin-top:1px}
+.al-w{background:var(--amberL);border-left:3px solid var(--amber);color:#7a3f00}
+.al-b{background:var(--blueL);border-left:3px solid var(--blue);color:#163a6e}
+.al-g{background:var(--greenL);border-left:3px solid var(--green);color:#134e2c}
+.al-r{background:var(--redL);border-left:3px solid var(--red);color:#7a1020}
+
+/* SLOT */
+.slot-g{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
+.slot-c{border-radius:11px;padding:16px;text-align:center}
+.slot-c.good{background:var(--greenL);border:2px solid #74c99a}
+.slot-c.bad{background:var(--cream);border:2px solid var(--sand);opacity:.6}
+.slot-ltr{font-family:'Playfair Display',serif;font-size:30px;font-weight:800;letter-spacing:-1px}
+.slot-c.good .slot-ltr{color:var(--green)}
+.slot-c.bad .slot-ltr{color:var(--ink4)}
+.slot-pill{display:inline-block;padding:3px 11px;border-radius:20px;font-family:'DM Mono',monospace;font-size:11px;margin-top:5px}
+.slot-c.good .slot-pill{background:rgba(26,107,58,.1);color:var(--green)}
+.slot-c.bad .slot-pill{background:var(--sand);color:var(--ink4)}
+.slot-note{font-size:12px;margin-top:8px;opacity:.8}
+.slot-c.good .slot-note{color:var(--green)}
+.slot-c.bad .slot-note{color:var(--ink4)}
+
+/* WIPE TAGS */
+.wt{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0}
+.wtag{display:flex;align-items:center;gap:6px;background:var(--greenL);border:1px solid #a8dcc0;border-radius:7px;padding:8px 13px;font-size:13px;font-weight:500;color:var(--green)}
+
+/* CHECKLIST */
+.cl{display:flex;flex-direction:column;gap:7px}
+.cl-item{display:flex;align-items:center;gap:13px;background:var(--white);border:1px solid var(--sand);border-radius:8px;padding:13px 17px;cursor:pointer;transition:all .18s;user-select:none}
+.cl-item:hover{background:var(--off);border-color:var(--stone)}
+.cl-item.ck{background:var(--greenL);border-color:#a8dcc0}
+.cl-box{width:22px;height:22px;border-radius:5px;border:2px solid var(--stone);background:var(--white);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .18s}
+.cl-item.ck .cl-box{background:var(--green);border-color:var(--green);color:#fff;font-size:13px;font-weight:700}
+.cl-item.ck .cl-box::after{content:'✓'}
+.cl-txt{font-size:13.5px;color:var(--ink2);line-height:1.5}
+.cl-item.ck .cl-txt{color:var(--ink4);text-decoration:line-through}
+
+/* TABS */
+.tab-bar{display:flex;flex-wrap:wrap;gap:3px;background:var(--cream);border:1px solid var(--sand);border-radius:11px;padding:4px;margin-bottom:18px}
+.tab-btn{padding:7px 13px;border:none;background:transparent;border-radius:8px;font-size:12.5px;font-weight:500;color:var(--ink3);cursor:pointer;transition:all .15s;white-space:nowrap}
+.tab-btn:hover{background:var(--white);color:var(--ink)}
+.tab-btn.on{background:var(--white);color:var(--accent);box-shadow:var(--shadow-sm)}
+.tab-pane{display:none}
+.tab-pane.on{display:block}
+
+/* ERROR TABLE */
+.et{width:100%;border-collapse:separate;border-spacing:0 4px}
+.et thead th{background:var(--cream);padding:9px 15px;text-align:left;font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:1px;text-transform:uppercase;color:var(--ink4);font-weight:500}
+.et thead th:first-child{border-radius:7px 0 0 7px}
+.et thead th:last-child{border-radius:0 7px 7px 0}
+.et tbody tr td{background:var(--white);padding:11px 15px;font-size:13px;vertical-align:top;border-top:1px solid var(--cream);border-bottom:1px solid var(--cream);transition:background .15s}
+.et tbody tr td:first-child{border-left:1px solid var(--cream);border-radius:7px 0 0 7px;font-family:'DM Mono',monospace;font-size:11.5px;color:var(--red)}
+.et tbody tr td:nth-child(2){color:var(--amber)}
+.et tbody tr td:last-child{border-right:1px solid var(--cream);border-radius:0 7px 7px 0;color:var(--green)}
+.et tbody tr:hover td{background:var(--off)}
+
+/* QUICK FIX */
+.qf-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.qfc{background:var(--white);border:1px solid var(--sand);border-radius:14px;overflow:hidden;box-shadow:var(--shadow-md);transition:box-shadow .2s,transform .2s}
+.qfc:hover{box-shadow:var(--shadow-lg);transform:translateY(-3px)}
+.qfc-hd{padding:15px 18px;display:flex;align-items:center;gap:10px}
+.qfc-ico{font-size:19px}
+.qfc-t{font-size:13.5px;font-weight:700}
+.qfc-bd{padding:0 18px 16px}
+.qfc-steps{list-style:none;display:flex;flex-direction:column;gap:6px}
+.qfc-steps li{display:flex;gap:7px;align-items:flex-start;font-size:13px;color:var(--ink2)}
+.qfc-steps .ar{color:var(--ink4);flex-shrink:0;font-family:'DM Mono',monospace;font-size:11px;margin-top:3px}
+.qfc.t-r .qfc-hd{background:var(--redL)}.qfc.t-r .qfc-t{color:var(--red)}
+.qfc.t-a .qfc-hd{background:var(--amberL)}.qfc.t-a .qfc-t{color:var(--amber)}
+.qfc.t-y .qfc-hd{background:#fff8e8}.qfc.t-y .qfc-t{color:#7a5800}
+.qfc.t-b .qfc-hd{background:var(--blueL)}.qfc.t-b .qfc-t{color:var(--blue)}
+.qfc.t-g .qfc-hd{background:var(--greenL)}.qfc.t-g .qfc-t{color:var(--green)}
+.qfc.t-k .qfc-hd{background:var(--cream)}.qfc.t-k .qfc-t{color:var(--ink)}
+
+/* FOOTER */
+footer{background:var(--ink);padding:40px max(20px,calc(50% - 560px));display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.ft-brand{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:#fff}
+.ft-brand span{color:rgba(200,68,10,.9)}
+.ft-meta{font-size:12.5px;color:rgba(255,255,255,.32);margin-top:5px}
+.ft-chips{display:flex;gap:7px;flex-wrap:wrap}
+.ft-chip{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.45);padding:5px 12px;border-radius:6px;font-family:'DM Mono',monospace;font-size:11px}
+
+#st{position:fixed;bottom:26px;right:26px;width:42px;height:42px;border-radius:10px;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center;font-size:17px;cursor:pointer;z-index:99;box-shadow:var(--shadow-lg);opacity:0;pointer-events:none;transition:all .2s;border:none}
+#st.show{opacity:1;pointer-events:all}
+#st:hover{background:var(--accent);transform:translateY(-2px)}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.hero-inner>*{animation:fadeUp .5s ease both}
+.eyebrow{animation-delay:.0s}.hero-inner h1{animation-delay:.1s}.hero-p{animation-delay:.2s}.chips{animation-delay:.3s}
+
+@media(max-width:680px){
+  .nav-links{display:none}
+  h1{font-size:32px;letter-spacing:-.8px}
+  .lang-wrap{margin-left:8px}
+  .lb{padding:6px 11px;font-size:11px}
+  .et thead{display:none}
+  .et tbody tr{display:block;margin-bottom:7px}
+  .et tbody tr td{display:block;border-radius:0!important;border:none!important;border-left:1px solid var(--cream)!important;border-right:1px solid var(--cream)!important}
+  .et tbody tr td:first-child{border-top:1px solid var(--cream)!important;border-radius:7px 7px 0 0!important}
+  .et tbody tr td:last-child{border-bottom:1px solid var(--cream)!important;border-radius:0 0 7px 7px!important}
+}
+</style>
+</head>
+<body class="bn">
+
+<div id="pg"></div>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#"><div class="nav-box">📱</div><div class="nav-name">Sunstone <span>ROM</span> Guide</div></a>
+  <ul class="nav-links">
+    <li><a href="#req"><span class="bn L">প্রস্তুতি</span><span class="en L">Requirements</span></a></li>
+    <li><a href="#guide"><span class="bn L">গাইড</span><span class="en L">Guide</span></a></li>
+    <li><a href="#checklist"><span class="bn L">চেকলিস্ট</span><span class="en L">Checklist</span></a></li>
+    <li><a href="#errors"><span class="bn L">সমস্যা</span><span class="en L">Errors</span></a></li>
+    <li><a href="#qf">Quick Fix</a></li>
+  </ul>
+  <div class="lang-wrap">
+    <div class="lang-toggle">
+      <button class="lb on" id="btn-bn" onclick="setLang('bn')">বাংলা</button>
+      <button class="lb" id="btn-en" onclick="setLang('en')">English</button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
+    <div class="eyebrow"><div class="eyebrow-dot">📟</div><span class="eyebrow-txt">REDMI NOTE 12 5G · CODENAME: SUNSTONE</span></div>
+    <h1><span class="bn L">Custom ROM Install<br><em>সম্পূর্ণ</em> গাইড</span><span class="en L">Custom ROM<br><em>Complete</em> Install Guide</span></h1>
+    <p class="hero-p">
+      <span class="bn L">Bugjaeger + TWRP পদ্ধতিতে ধাপে ধাপে বাংলায় — সকল সমস্যার সমাধানসহ।</span>
+      <span class="en L">Step-by-step guide using Bugjaeger + TWRP — with all error solutions included.</span>
+    </p>
+    <div class="chips">
+      <div class="chip"><div class="chip-d"></div><span class="bn L">১১টি Step</span><span class="en L">11 Steps</span></div>
+      <div class="chip"><div class="chip-d"></div><span class="bn L">৮০+ Error Fix</span><span class="en L">80+ Error Fixes</span></div>
+      <div class="chip"><div class="chip-d"></div>A/B Partition</div>
+      <div class="chip"><div class="chip-d"></div>Bootloader Unlocked</div>
+    </div>
+  </div>
+</section>
+
+<!-- DEVICE CARD -->
+<div class="dev-strip">
+  <div class="dev-card">
+    <div class="dev-top">
+      <div class="dev-icon">⚙️</div>
+      <div><div class="dev-name">Redmi Note 12 5G</div><div class="dev-sub"><span class="bn L">ডিভাইস তথ্য</span><span class="en L">Device Specification</span></div></div>
+    </div>
+    <div class="dev-grid">
+      <div class="dev-item"><div class="dev-key">Codename</div><div class="dev-val">sunstone</div></div>
+      <div class="dev-item"><div class="dev-key">Chipset</div><div class="dev-val">SD 4 Gen 1</div></div>
+      <div class="dev-item"><div class="dev-key">Partition</div><div class="dev-val">A/B (VAB)</div></div>
+      <div class="dev-item"><div class="dev-key">Architecture</div><div class="dev-val">ARM64</div></div>
+      <div class="dev-item"><div class="dev-key">Flash cmd</div><div class="dev-val">fastboot flash boot</div></div>
+      <div class="dev-item"><div class="dev-key">Status</div><div class="dev-val">BL Unlocked ✓</div></div>
+    </div>
+  </div>
+</div>
+
+<main class="main">
+
+<!-- ── SECTION 01: REQUIREMENTS ── -->
+<section class="sec" id="req">
+  <div class="sec-label"><span class="sec-num">01</span><div class="sec-line"></div></div>
+  <h2 class="sec-title"><span class="bn L">শুরুর আগে প্রয়োজনীয় জিনিস</span><span class="en L">Requirements Before Starting</span></h2>
+  <p class="sec-sub"><span class="bn L">সব কিছু প্রস্তুত করুন, তারপর শুরু করুন</span><span class="en L">Prepare everything before you begin</span></p><br>
+  <div class="req-grid">
+    <div class="req-card"><div class="req-ico">📱</div><div><div class="req-t">Target Phone</div><div class="req-d"><span class="bn L">Redmi Note 12 5G · Bootloader Unlocked</span><span class="en L">Redmi Note 12 5G · Bootloader Unlocked</span></div></div></div>
+    <div class="req-card"><div class="req-ico">📲</div><div><div class="req-t">Mother Phone</div><div class="req-d"><span class="bn L">যেকোনো Android ফোন (OTG support)</span><span class="en L">Any Android phone with OTG support</span></div></div></div>
+    <div class="req-card"><div class="req-ico">🔌</div><div><div class="req-t">OTG Cable</div><div class="req-d"><span class="bn L">Type-C to Type-C বা Micro-USB</span><span class="en L">Type-C to Type-C or Micro-USB</span></div></div></div>
+    <div class="req-card"><div class="req-ico">🐛</div><div><div class="req-t">Bugjaeger App</div><div class="req-d"><span class="bn L">Mother Phone এ install করুন</span><span class="en L">Install on Mother Phone</span></div></div></div>
+    <div class="req-card"><div class="req-ico">💾</div><div><div class="req-t">TWRP img</div><div class="req-d"><code style="font-family:'DM Mono',monospace;font-size:11px">twrp_recovery.img</code></div></div></div>
+    <div class="req-card"><div class="req-ico">📦</div><div><div class="req-t">ROM zip</div><div class="req-d"><code style="font-family:'DM Mono',monospace;font-size:11px">romfile.zip</code> — Sunstone ROM</div></div></div>
+    <div class="req-card"><div class="req-ico">💿</div><div><div class="req-t">Storage</div><div class="req-d"><span class="bn L">Memory Card বা OTG Storage</span><span class="en L">Memory Card or OTG Storage</span></div></div></div>
+    <div class="req-card"><div class="req-ico">🔋</div><div><div class="req-t">Battery 50%+</div><div class="req-d"><span class="bn L">Target Phone এ কমপক্ষে ৫০% চার্জ</span><span class="en L">At least 50% charge on Target Phone</span></div></div></div>
+  </div>
+  <div class="al al-w" style="margin-top:14px"><span class="al-i">⚠️</span><span>
+    <span class="bn L">শুরু করার আগে সব গুরুত্বপূর্ণ <strong>data backup</strong> নিন। ROM install এ ফোনের সব data মুছে যাবে।</span>
+    <span class="en L">Take a full <strong>data backup</strong> before starting. All phone data will be erased during ROM installation.</span>
+  </span></div>
+</section>
+
+<!-- ── SECTION 02: GUIDE ── -->
+<section class="sec" id="guide">
+  <div class="sec-label"><span class="sec-num">02</span><div class="sec-line"></div></div>
+  <h2 class="sec-title"><span class="bn L">Step-by-Step ইনস্টল গাইড</span><span class="en L">Step-by-Step Install Guide</span></h2>
+  <p class="sec-sub"><span class="bn L">প্রতিটি step ক্লিক করে বিস্তারিত দেখুন</span><span class="en L">Click each step to expand details</span></p><br>
+  <div class="steps">
+
+    <!-- S1 -->
+    <div class="step open">
+      <div class="step-hd" onclick="ts(this)">
+        <div class="step-badge">01</div>
+        <div class="step-meta">
+          <div class="step-nm"><span class="bn L">ফাইল প্রস্তুত করুন</span><span class="en L">Prepare Files</span></div>
+          <div class="step-ht"><span class="bn L">ROM zip ও TWRP img সঠিক জায়গায় রাখুন</span><span class="en L">Place ROM zip and TWRP img in correct locations</span></div>
+        </div>
+        <div class="step-cv">▾</div>
+      </div>
+      <div class="step-bd">
+        <ul class="slist">
+          <li><span class="bn L"><strong>Memory Card / OTG Storage</strong> তে ROM zip কপি করুন → <code style="font-family:'DM Mono',monospace;color:var(--accent)">romfile.zip</code></span><span class="en L">Copy ROM zip to <strong>Memory Card / OTG Storage</strong> → <code style="font-family:'DM Mono',monospace;color:var(--accent)">romfile.zip</code></span></li>
+          <li><span class="bn L">TWRP img ফাইল <strong>Mother Phone এর internal storage</strong> তে রাখুন → <code style="font-family:'DM Mono',monospace;color:var(--accent)">twrp_recovery.img</code></span><span class="en L">Place TWRP img in <strong>Mother Phone's internal storage</strong> → <code style="font-family:'DM Mono',monospace;color:var(--accent)">twrp_recovery.img</code></span></li>
+          <li><span class="bn L">Mother Phone এ <strong>Bugjaeger Mobile ADB</strong> install করুন</span><span class="en L">Install <strong>Bugjaeger Mobile ADB</strong> on Mother Phone</span></li>
+        </ul>
+        <div class="al al-b"><span class="al-i">ℹ️</span><span>
+          <span class="bn L">ROM zip অবশ্যই <strong>Sunstone (Redmi Note 12 5G)</strong> এর জন্য হতে হবে।</span>
+          <span class="en L">The ROM zip must be specifically built for <strong>Sunstone (Redmi Note 12 5G)</strong>.</span>
+        </span></div>
+      </div>
+    </div>
+
+    <!-- S2 -->
+    <div class="step">
+      <div class="step-hd" onclick="ts(this)">
+        <div class="step-badge">02</div>
+        <div class="step-meta">
+          <div class="step-nm"><span class="bn L">Fastboot Mode এ যান</span><span class="en L">Enter Fastboot Mode</span></div>
+          <div class="step-ht"><span class="bn L">Volume Down + Power বাটন একসাথে চাপুন</span><span class="en L">Hold Volume Down + Power simultaneously</span></div>
+        </div>
+        <div class="step-cv">▾</div>
+      </div>
+      <div class="step-bd">
+        <ul class="slist">
+          <li><span class="bn L">Target Phone <strong>সম্পূর্ণ বন্ধ</strong> করুন</span><span class="en L"><strong>Completely power off</strong> the Target Phone</span></li>
+          <li><span class="bn L"><strong>Volume Down + Power</strong> বাটন একসাথে চেপে ধরুন</span><span class="en L">Hold <strong>Volume Down + Power</strong> buttons simultaneously</span></li>
+          <li><span class="bn L">Fastboot screen আসলে বাটন ছেড়ে দিন</span><span class="en L">Release when the Fastboot screen appears</span></li>
+          <li><span class="bn L">OTG Cable দিয়ে <strong>Mother Phone এর সাথে কানেক্ট</strong> করুন</span><span class="en L">Connect to <strong>Mother Phone via OTG Cable</strong></span></li>
+          <li><span class="bn L">Bugjaeger open করুন → <strong>"Device detected"</strong> দেখালে সফল ✅</span><span class="en L">Open Bugjaeger → <strong>"Device detected"</strong> means success ✅</span></li>
+        </ul>
+        <div class="al al-w"><span class="al-i">⚠️</span><span>
+          <span class="bn L">Device না দেখালে cable খুলে আবার লাগান। অন্য OTG cable try করুন।</span>
+          <span class="en L">If device not detected — unplug and replug. Try a different OTG cable.</span>
+        </span></div>
+      </div>
+    </div>
+
+    <!-- S3 -->
+    <div class="step">
+      <div class="step-hd" onclick="ts(this)">
+        <div class="step-badge">03</div>
+        <div class="step-meta">
+          <div class="step-nm"><span class="bn L">Active Slot চেক করুন ⚡</span><span class="en L">Check Active Slot ⚡</span></div>
+          <div class="step-ht"><span class="bn L">সবচেয়ে গুরুত্বপূর্ণ — এড়িয়ে যাবেন না</span><span class="en L">Most critical step — do not skip</span></div>
+        </div>
+        <div class="step-cv">▾</div>
+      </div>
+      <div class="step-bd">
+        <div class="al al-r"><span class="al-i">🔴</span><span>
+          <span class="bn L">Slot ভুল হলে TWRP flash হবে না অথবা boot loop হবে।</span>
+          <span class="en L">Wrong slot will prevent TWRP from flashing or cause a boot loop.</span>
+        </span></div>
+        <p style="color:var(--ink3);font-size:13.5px;margin:14px 0 6px">
+          <span class="bn L">Bugjaeger → Fastboot tab → command দিন:</span>
+          <span class="en L">Bugjaeger → Fastboot tab → run command:</span>
+        </p>
+        <div class="code"><button class="cpbtn" onclick="cp(this)">COPY</button>fastboot getvar current-slot</div>
+        <div class="slot-g">
+          <div class="slot-c good">
+            <div class="slot-ltr">Slot A</div>
+            <div class="slot-pill">✓ <span class="bn L">Step 4 এ যান</span><span class="en L">Go to Step 4</span></div>
+            <p class="slot-note"><span class="bn L">এটা দেখালে ঠিক আছে</span><span class="en L">This is correct — proceed</span></p>
+          </div>
+          <div class="slot-c bad">
+            <div class="slot-ltr">Slot B</div>
+            <div class="slot-pill">⚠ <span class="bn L">পরিবর্তন করুন</span><span class="en L">Change required</span></div>
+            <p class="slot-note"><span class="bn L">নিচের command দিন</span><span class="en L">Run command below</span></p>
+          </div>
+        </div>
+        <p style="color:var(--ink3);font-size:13.5px;margin:6px 0">
+          <span class="bn L">Slot B থাকলে:</span><span class="en L">If Slot B, run:</span>
+        </p>
+        <div class="code"><button class="cpbtn" onclick="cp(this)">COPY</button>fastboot set_active a</div>
+      </div>
+    </div>
+
+    <!-- S4 -->
+    <div class="step">
+      <div class="step-hd" onclick="ts(this)">
+        <div class="step-badge">04</div>
+        <div class="step-meta">
+          <div class="step-nm"><span class="bn L">TWRP Flash করুন</span><span class="en L">Flash TWRP</span></div>
+          <div class="step-ht"><span class="bn L">Bugjaeger দিয়ে twrp_recovery.img flash করুন</span><span class="en L">Flash twrp_recovery.img via Bugjaeger</span></div>
+        </div>
+        <div class="step-cv">▾</div>
+      </div>
+      <div class="step-bd">
+        <ul class="slist">
+          <li><span class="bn L">Bugjaeger → Fastboot tab → command box এ লিখুন:</span><span class="en L">Bugjaeger → Fastboot tab → type in command box:</span></li>
+        </ul>
+        <div class="code"><button class="cpbtn" onclick="cp(this)">COPY</button>fastboot flash boot</div>
+        <ul class="slist">
+          <li><span class="bn L"><strong>twrp_recovery.img</strong> ফাইলটি select / drag করুন এবং <strong>Run</strong> করুন</span><span class="en L">Select / drag <strong>twrp_recovery.img</strong> and click <strong>Run</strong></span></li>
+        </ul>
+        <p style="font-size:13px;color:var(--ink4);margin:12px 0 5px">
+          <span class="bn L">সফল হলে দেখাবে:</span><span class="en L">On success you will see:</span>
+        </p>
+        <div class="code"><span class="ok">OKAY [  0.xxx s]</span>
+<span class="ok">Finished. Total time: x.xxxs</span></div>
+        <div class="al al-w"><span class="al-i">⚠️</span><span>
+          <span class="bn L">Error আসলে cable বদলান। Slot A active আছে কিনা নিশ্চিত করুন।</span>
+          <span class="en L">On error — change cable. Make sure Slot A is active.</span>
+        </span></div>
+      </div>
+    </div>
+
+    <!-- S5 -->
+    <div class="step">
+      <div class="step-hd" onclick="ts(this)">
+        <div class="step-badge">05</div>
+        <div class="step-meta">
+          <div class="step-nm"><span class="bn L">TWRP তে Boot করুন</span><span class="en L">Boot into TWRP</span></div>
+          <div class="step-ht"><span class="bn L">fastboot reboot recovery দিন</span><span class="en L">Run fastboot reboot recovery</span></div>
+        </div>
+        <div class="step-cv">▾</div>
+      </div>
+      <div class="step-bd">
+        <div class="code"><button class="cpbtn" onclick="cp(this)">COPY</button>fastboot reboot recovery</div>
+        <div class="al al-b"><span class="al-i">ℹ️</span><span>
+          <span class="bn L">অথবা Volume বাটন দিয়ে <strong>Recovery</strong> সিলেক্ট করে Power চাপুন।</span>
+          <span class="en L">Or use Volume buttons to select <strong>Recovery</strong>, then press Power.</span>
+        </span></div>
+        <div class="al al-g"><span class="al-i">✅</span><span>
+          <span class="bn L">TWRP screen আসলে সফল!</span>
+          <span class="en L">TWRP screen means success!</span>
+        </span></div>
+        <div class="al al-w"><span class="al-i">⚠️</span><span>
+          <span class="bn L">System boot হলে — Step 3 থেকে আবার করুন।</span>
+          <span class="en L">If system boots instead — go back to Step 3.</span>
+        </span></div>
+      </div>
+    </div>
+
+    <!-- S6 -->
+    <div class="step">
+      <div class="step-hd" onclick="ts(this)">
+        <div class="step-badge">06</div>
+        <div class="step-meta">
+          <div class="step-nm"><span class="bn L">Advanced Wipe করুন</span><span class="en L">Advanced Wipe</span></div>
+          <div class="step-ht"><span class="bn L">System সহ সব partition wipe করুন</span><span class="en L">Wipe all partitions including System</span></div>
+        </div>
+        <div class="step-cv">▾</div>
+      </div>
+      <div class="step-bd">
+        <ul class="slist">
+          <li><span class="bn L">TWRP → <strong>Wipe</strong> → <strong>Advanced Wipe</strong> এ যান</span><span class="en L">Go to TWRP → <strong>Wipe</strong> → <strong>Advanced Wipe</strong></span></li>
+          <li><span class="bn L">নিচের সবগুলো টিক দিন:</span><span class="en L">Check all of the following:</span></li>
+        </ul>
+        <div class="wt">
+          <div class="wtag">✓ Dalvik / ART Cache</div>
+          <div class="wtag">✓ System</div>
+          <div class="wtag">✓ Data</div>
+          <div class="wtag">✓ Metadata</div>
+          <div class="wtag">✓ Cache</div>
+        </div>
+        <ul class="slist">
+          <li><span class="bn L"><strong>Swipe to Wipe</strong> করুন — 100% হওয়া পর্যন্ত অপেক্ষা করুন ⏳</span><span class="en L"><strong>Swipe to Wipe</strong> — wait until 100% complete ⏳</span></li>
+        </ul>
+        <div class="al al-w"><span class="al-i">⚠️</span><span>
+          <span class="bn L"><strong>System</strong> টিক না দিলে পুরনো ROM conflict করে boot loop হতে পারে।</span>
+          <span class="en L">Skipping <strong>System</strong> may cause old ROM conflicts and boot loop.</span>
+        </span></div>
+      </div>
+    </div>
+
+    <!-- S7 -->
+    <div class="step">
+      <div class="step-hd" onclick="ts(this)">
+        <div class="step-badge">07</div>
+        <div class="step-meta">
+          <div class="step-nm"><span class="bn L">Slot চেক ও Recovery তে Reboot</span><span class="en L">Check Slot & Reboot to Recovery</span></div>
+          <div class="step-ht"><span class="bn L">System এ reboot করবেন না এখনো</span><span class="en L">Do NOT reboot to System yet</span></div>
+        </div>
+        <div class="step-cv">▾</div>
+      </div>
+      <div class="step-bd">
+        <ul class="slist">
+          <li><span class="bn L">TWRP → <strong>Reboot</strong> এ যান</span><span class="en L">Go to TWRP → <strong>Reboot</strong></span></li>
+          <li><span class="bn L">Current Slot দেখুন — <strong>Slot B</strong> দেখালে <strong>Slot A</strong> তে switch করুন</span><span class="en L">Check current slot — if <strong>Slot B</strong>, switch to <strong>Slot A</strong></span></li>
+          <li><span class="bn L"><strong>Reboot to Recovery</strong> চাপুন</span><span class="en L">Tap <strong>Reboot to Recovery</strong></span></li>
+        </ul>
+        <div class="al al-r"><span class="al-i">🔴</span><span>
+          <span class="bn L"><strong>System এ Reboot করবেন না</strong> — ROM এখনো install হয়নি।</span>
+          <span class="en L"><strong>Do NOT reboot to System</strong> — ROM is not installed yet.</span>
+        </span></div>
+      </div>
+    </div>
+
+    <!-- S8 -->
+    <div class="step">
+      <div class="step-hd" onclick="ts(this)">
+        <div class="step-badge">08</div>
+        <div class="step-meta">
+          <div class="step-nm"><span class="bn L">ROM Install করুন</span><span class="en L">Install ROM</span></div>
+          <div class="step-ht"><span class="bn L">Memory Card থেকে romfile.zip flash করুন</span><span class="en L">Flash romfile.zip from Memory Card / OTG</span></div>
+        </div>
+        <div class="step-cv">▾</div>
+      </div>
+      <div class="step-bd">
+        <ul class="slist">
+          <li><span class="bn L">TWRP → <strong>Install</strong> বাটনে যান</span><span class="en L">Tap <strong>Install</strong> in TWRP</span></li>
+          <li><span class="bn L">Memory Card / OTG থেকে <code style="font-family:'DM Mono',monospace;color:var(--accent)">romfile.zip</code> সিলেক্ট করুন</span><span class="en L">Select <code style="font-family:'DM Mono',monospace;color:var(--accent)">romfile.zip</code> from Memory Card / OTG</span></li>
+          <li><span class="bn L"><strong>Swipe to Confirm Flash</strong> করুন</span><span class="en L"><strong>Swipe to Confirm Flash</strong></span></li>
+          <li><span class="bn L">Progress bar শেষ হওয়া পর্যন্ত অপেক্ষা করুন ⏳</span><span class="en L">Wait until the progress bar completes ⏳</span></li>
+        </ul>
+        <div class="al al-w"><span class="al-i">⚠️</span><span>
+          <span class="bn L">Flash এর সময় ফোন নাড়াবেন না, cable খুলবেন না।</span>
+          <span class="en L">Do not move the phone or disconnect the cable during flashing.</span>
+        </span></div>
+      </div>
+    </div>
+
+    <!-- S9 -->
+    <div class="step">
+      <div class="step-hd" onclick="ts(this)">
+        <div class="step-badge">09</div>
+        <div class="step-meta">
+          <div class="step-nm"><span class="bn L">Format Data করুন ⚡</span><span class="en L">Format Data ⚡</span></div>
+          <div class="step-ht"><span class="bn L">এই step skip করলে boot loop হবে — আবশ্যক</span><span class="en L">Mandatory — skipping causes boot loop</span></div>
+        </div>
+        <div class="step-cv">▾</div>
+      </div>
+      <div class="step-bd">
+        <ul class="slist">
+          <li><span class="bn L">TWRP → <strong>Wipe</strong> → <strong>Format Data</strong> এ যান</span><span class="en L">Go to TWRP → <strong>Wipe</strong> → <strong>Format Data</strong></span></li>
+          <li><span class="bn L">Keyboard এ <code style="font-family:'DM Mono',monospace;color:var(--accent)">yes</code> টাইপ করুন এবং Confirm করুন</span><span class="en L">Type <code style="font-family:'DM Mono',monospace;color:var(--accent)">yes</code> and confirm</span></li>
+        </ul>
+        <div class="al al-r"><span class="al-i">🔴</span><span>
+          <span class="bn L">এই step <strong>অবশ্যই করতে হবে</strong>। Skip করলে প্রায় নিশ্চিত boot loop হবে।</span>
+          <span class="en L">This step is <strong>mandatory</strong>. Skipping it almost guarantees a boot loop.</span>
+        </span></div>
+      </div>
+    </div>
+
+    <!-- S10 -->
+    <div class="step">
+      <div class="step-hd" onclick="ts(this)">
+        <div class="step-badge">10</div>
+        <div class="step-meta">
+          <div class="step-nm"><span class="bn L">Reboot System করুন</span><span class="en L">Reboot to System</span></div>
+          <div class="step-ht"><span class="bn L">১০ মিনিট পর্যন্ত ধৈর্য ধরুন</span><span class="en L">Be patient — first boot takes up to 10 minutes</span></div>
+        </div>
+        <div class="step-cv">▾</div>
+      </div>
+      <div class="step-bd">
+        <ul class="slist">
+          <li><span class="bn L">TWRP → <strong>Reboot</strong> → <strong>System</strong> চাপুন</span><span class="en L">TWRP → <strong>Reboot</strong> → tap <strong>System</strong></span></li>
+          <li><span class="bn L">প্রথম boot এ <strong>৫-১০ মিনিট</strong> সময় লাগবে ⏳</span><span class="en L">First boot takes <strong>5–10 minutes</strong> ⏳</span></li>
+          <li><span class="bn L">MIUI / HyperOS লোগো আসলে সফল 🎉</span><span class="en L">MIUI / HyperOS logo appearing means success 🎉</span></li>
+        </ul>
+        <div class="al al-w"><span class="al-i">⚠️</span><span>
+          <span class="bn L">Logo দেখে ধৈর্য হারিয়ে <strong>বন্ধ করবেন না</strong>।</span>
+          <span class="en L">Do <strong>not power off</strong> when you see the logo.</span>
+        </span></div>
+        <div class="al al-g"><span class="al-i">🎉</span><span>
+          <span class="bn L">ফোন চালু হয়ে গেলে Custom ROM install সম্পন্ন!</span>
+          <span class="en L">Once the phone fully boots, Custom ROM installation is complete!</span>
+        </span></div>
+      </div>
+    </div>
+
+    <!-- S11 -->
+    <div class="step">
+      <div class="step-hd" onclick="ts(this)">
+        <div class="step-badge">11</div>
+        <div class="step-meta">
+          <div class="step-nm"><span class="bn L">Root করুন — Magisk</span><span class="en L">Root with Magisk</span></div>
+          <div class="step-ht"><span class="bn L">Optional — root access এর জন্য</span><span class="en L">Optional — for root access</span></div>
+        </div>
+        <div class="step-cv">▾</div>
+      </div>
+      <div class="step-bd">
+        <ul class="slist">
+          <li><span class="bn L"><a href="https://github.com/topjohnwu/Magisk/releases" target="_blank" style="color:var(--accent)">Magisk APK</a> ডাউনলোড ও install করুন</span><span class="en L">Download and install <a href="https://github.com/topjohnwu/Magisk/releases" target="_blank" style="color:var(--accent)">Magisk APK</a></span></li>
+          <li><span class="bn L">Magisk open → <strong>Install</strong> → <strong>Direct Install (Recommended)</strong></span><span class="en L">Open Magisk → <strong>Install</strong> → <strong>Direct Install (Recommended)</strong></span></li>
+          <li><span class="bn L"><strong>Reboot</strong> করুন → Root হয়ে গেছে ✅</span><span class="en L"><strong>Reboot</strong> → Device is now rooted ✅</span></li>
+        </ul>
+        <div class="al al-b"><span class="al-i">ℹ️</span><span>
+          <span class="bn L">Direct Install কাজ না করলে — boot.img patch করে Fastboot দিয়ে flash করুন।</span>
+          <span class="en L">If Direct Install fails — patch boot.img and flash via Fastboot.</span>
+        </span></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── SECTION 03: CHECKLIST ── -->
+<section class="sec" id="checklist">
+  <div class="sec-label"><span class="sec-num">03</span><div class="sec-line"></div></div>
+  <h2 class="sec-title"><span class="bn L">Boot Loop আটকানোর চেকলিস্ট</span><span class="en L">Boot Loop Prevention Checklist</span></h2>
+  <p class="sec-sub"><span class="bn L">প্রতিটি item সম্পন্ন হলে ক্লিক করে টিক দিন</span><span class="en L">Click each item to check it off when done</span></p><br>
+  <div class="cl">
+    <div class="cl-item" onclick="tc(this)"><div class="cl-box"></div><span class="cl-txt"><span class="bn L">Flash এর আগে <strong>fastboot getvar current-slot</strong> দিয়ে Slot চেক করেছি</span><span class="en L">Checked active slot using <strong>fastboot getvar current-slot</strong> before flashing</span></span></div>
+    <div class="cl-item" onclick="tc(this)"><div class="cl-box"></div><span class="cl-txt"><span class="bn L">Slot B ছিল → <strong>fastboot set_active a</strong> দিয়ে Slot A করেছি</span><span class="en L">Slot was B → Changed to A using <strong>fastboot set_active a</strong></span></span></div>
+    <div class="cl-item" onclick="tc(this)"><div class="cl-box"></div><span class="cl-txt"><span class="bn L">Advanced Wipe এ <strong>System সহ সবগুলো</strong> টিক দিয়ে Wipe করেছি</span><span class="en L">Wiped <strong>all partitions including System</strong> in Advanced Wipe</span></span></div>
+    <div class="cl-item" onclick="tc(this)"><div class="cl-box"></div><span class="cl-txt"><span class="bn L">ROM flash এর আগে <strong>TWRP তে Slot A</strong> active আছে কিনা চেক করেছি</span><span class="en L">Verified <strong>Slot A is active in TWRP</strong> before flashing ROM</span></span></div>
+    <div class="cl-item" onclick="tc(this)"><div class="cl-box"></div><span class="cl-txt"><span class="bn L">ROM zip টি <strong>Sunstone (Redmi Note 12 5G)</strong> এর জন্য নিশ্চিত করেছি</span><span class="en L">Confirmed ROM zip is specifically for <strong>Sunstone (Redmi Note 12 5G)</strong></span></span></div>
+    <div class="cl-item" onclick="tc(this)"><div class="cl-box"></div><span class="cl-txt"><span class="bn L">ROM flash শেষে <strong>Format Data → yes</strong> করেছি</span><span class="en L">Performed <strong>Format Data → yes</strong> after flashing ROM</span></span></div>
+    <div class="cl-item" onclick="tc(this)"><div class="cl-box"></div><span class="cl-txt"><span class="bn L">Reboot System এর পর কমপক্ষে <strong>১০ মিনিট</strong> অপেক্ষা করব</span><span class="en L">Will wait at least <strong>10 minutes</strong> after tapping Reboot System</span></span></div>
+    <div class="cl-item" onclick="tc(this)"><div class="cl-box"></div><span class="cl-txt"><span class="bn L">ফোনের Battery <strong>৫০% এর উপরে</strong> আছে</span><span class="en L">Phone battery is <strong>above 50%</strong></span></span></div>
+  </div>
+</section>
+
+<!-- ── SECTION 04: ERRORS ── -->
+<section class="sec" id="errors">
+  <div class="sec-label"><span class="sec-num">04</span><div class="sec-line"></div></div>
+  <h2 class="sec-title"><span class="bn L">সকল সমস্যা ও সমাধান</span><span class="en L">All Errors & Solutions</span></h2>
+  <p class="sec-sub"><span class="bn L">ক্যাটাগরি বেছে নিন</span><span class="en L">Select a category</span></p><br>
+
+  <div class="tab-bar">
+    <button class="tab-btn on" onclick="stab('bl',this)">Bootloader</button>
+    <button class="tab-btn" onclick="stab('bj',this)">Bugjaeger/ADB</button>
+    <button class="tab-btn" onclick="stab('fb',this)">Fastboot</button>
+    <button class="tab-btn" onclick="stab('tw',this)">TWRP</button>
+    <button class="tab-btn" onclick="stab('sl',this)">Slot</button>
+    <button class="tab-btn" onclick="stab('rf',this)">ROM Flash</button>
+    <button class="tab-btn" onclick="stab('bt',this)">Boot</button>
+    <button class="tab-btn" onclick="stab('mg',this)">Magisk</button>
+    <button class="tab-btn" onclick="stab('pi',this)">Post-Install</button>
+    <button class="tab-btn" onclick="stab('ga',this)">GApps</button>
+  </div>
+
+  <!-- helper macro: each table row has bilingual cells -->
+
+  <div class="tab-pane on" id="tab-bl">
+    <table class="et"><thead><tr>
+      <th><span class="bn L">সমস্যা</span><span class="en L">Error</span></th>
+      <th><span class="bn L">কারণ</span><span class="en L">Cause</span></th>
+      <th><span class="bn L">সমাধান</span><span class="en L">Solution</span></th>
+    </tr></thead><tbody>
+      <tr><td>error 10006</td><td><span class="bn L">Mi account verify হয়নি</span><span class="en L">Mi account not verified</span></td><td><span class="bn L">৭ দিন অপেক্ষা করুন, আবার try করুন</span><span class="en L">Wait 7 days, then try again</span></td></tr>
+      <tr><td>error 10009</td><td><span class="bn L">ফোন account এ bind নেই</span><span class="en L">Phone not bound to Mi account</span></td><td><span class="bn L">Settings → Mi Account → Unlock device bind করুন</span><span class="en L">Settings → Mi Account → Bind unlock device</span></td></tr>
+      <tr><td>error 10015</td><td><span class="bn L">Server সমস্যা</span><span class="en L">Server error</span></td><td><span class="bn L">কিছুক্ষণ পরে আবার try করুন</span><span class="en L">Wait and try again</span></td></tr>
+      <tr><td>error 20000</td><td><span class="bn L">VPN / Internet সমস্যা</span><span class="en L">VPN / Internet issue</span></td><td><span class="bn L">VPN বন্ধ করুন, আবার try করুন</span><span class="en L">Disable VPN and retry</span></td></tr>
+      <tr><td><span class="bn L">Unlock button grey</span><span class="en L">Unlock button greyed out</span></td><td><span class="bn L">Waiting period শেষ হয়নি</span><span class="en L">Waiting period not complete</span></td><td><span class="bn L">৭ দিন পূর্ণ হওয়া পর্যন্ত অপেক্ষা করুন</span><span class="en L">Wait until the full 7 days pass</span></td></tr>
+      <tr><td><span class="bn L">Mi Unlock চলছে না</span><span class="en L">Mi Unlock won't open</span></td><td><span class="bn L">Driver সমস্যা</span><span class="en L">Driver issue</span></td><td><span class="bn L">Xiaomi USB Driver install করুন</span><span class="en L">Install Xiaomi USB Driver</span></td></tr>
+      <tr><td><span class="bn L">Unlock এর পর relock</span><span class="en L">Relocked after unlock</span></td><td><span class="bn L">OTA update নিয়েছিল</span><span class="en L">OTA update was applied</span></td><td><span class="bn L">আবার unlock process করুন</span><span class="en L">Repeat the unlock process</span></td></tr>
+      <tr><td><span class="bn L">Unlock এ data মুছে গেছে</span><span class="en L">Data wiped after unlock</span></td><td><span class="bn L">এটা স্বাভাবিক</span><span class="en L">This is normal</span></td><td><span class="bn L">Unlock এর আগে সব backup নিন</span><span class="en L">Always backup before unlocking</span></td></tr>
+    </tbody></table>
+  </div>
+
+  <div class="tab-pane" id="tab-bj"><table class="et"><thead><tr><th><span class="bn L">সমস্যা</span><span class="en L">Error</span></th><th><span class="bn L">কারণ</span><span class="en L">Cause</span></th><th><span class="bn L">সমাধান</span><span class="en L">Solution</span></th></tr></thead><tbody>
+    <tr><td><span class="bn L">Device detected হচ্ছে না</span><span class="en L">Device not detected</span></td><td><span class="bn L">Cable সমস্যা</span><span class="en L">Bad cable</span></td><td><span class="bn L">অন্য OTG cable try করুন</span><span class="en L">Try a different OTG cable</span></td></tr>
+    <tr><td><span class="bn L">Device detected হচ্ছে না</span><span class="en L">Device not detected</span></td><td><span class="bn L">Permission নেই</span><span class="en L">No permission</span></td><td><span class="bn L">Bugjaeger uninstall → reinstall করুন</span><span class="en L">Uninstall → reinstall Bugjaeger</span></td></tr>
+    <tr><td><span class="bn L">Device detected হচ্ছে না</span><span class="en L">Device not detected</span></td><td><span class="bn L">Fastboot mode এ নেই</span><span class="en L">Not in Fastboot mode</span></td><td><span class="bn L">Volume Down + Power চেপে Fastboot এ যান</span><span class="en L">Hold Volume Down + Power to enter Fastboot</span></td></tr>
+    <tr><td><span class="bn L">Bugjaeger crash</span><span class="en L">Bugjaeger crashing</span></td><td><span class="bn L">App bug</span><span class="en L">App bug</span></td><td><span class="bn L">Force stop → clear cache → reopen</span><span class="en L">Force stop → clear cache → reopen</span></td></tr>
+    <tr><td><span class="bn L">Command run হচ্ছে না</span><span class="en L">Command not running</span></td><td><span class="bn L">Wrong tab</span><span class="en L">Wrong tab selected</span></td><td><span class="bn L">Fastboot tab এ আছেন কিনা চেক করুন</span><span class="en L">Make sure you are on the Fastboot tab</span></td></tr>
+    <tr><td><span class="bn L">OTG কাজ করছে না</span><span class="en L">OTG not working</span></td><td><span class="bn L">Mother Phone OTG নেই</span><span class="en L">Mother Phone has no OTG</span></td><td><span class="bn L">অন্য Mother Phone ব্যবহার করুন</span><span class="en L">Use a different Mother Phone</span></td></tr>
+    <tr><td>ADB unauthorized</td><td><span class="bn L">ফোনে Allow করেননি</span><span class="en L">Did not allow on phone</span></td><td><span class="bn L">ফোনে Allow RSA তে OK করুন</span><span class="en L">Tap OK on Allow RSA popup on phone</span></td></tr>
+    <tr><td><span class="bn L">Multiple devices error</span><span class="en L">Multiple devices error</span></td><td><span class="bn L">একাধিক device connected</span><span class="en L">Multiple devices connected</span></td><td><span class="bn L">অন্য device disconnect করুন</span><span class="en L">Disconnect other devices</span></td></tr>
+  </tbody></table></div>
+
+  <div class="tab-pane" id="tab-fb"><table class="et"><thead><tr><th><span class="bn L">Error</span><span class="en L">Error</span></th><th><span class="bn L">কারণ</span><span class="en L">Cause</span></th><th><span class="bn L">সমাধান</span><span class="en L">Solution</span></th></tr></thead><tbody>
+    <tr><td>fastboot: command not found</td><td><span class="bn L">Typo / ভুল command</span><span class="en L">Typo or wrong command</span></td><td><span class="bn L">Command ঠিকমতো লিখুন, space দেখুন</span><span class="en L">Check spelling and spacing</span></td></tr>
+    <tr><td>FAILED (remote: unknown command)</td><td><span class="bn L">Fastboot mode এ নেই</span><span class="en L">Not in Fastboot mode</span></td><td><span class="bn L">বন্ধ করে আবার Fastboot এ যান</span><span class="en L">Power off and re-enter Fastboot</span></td></tr>
+    <tr><td>FAILED (remote: device is locked)</td><td><span class="bn L">Bootloader locked</span><span class="en L">Bootloader is locked</span></td><td><span class="bn L">Mi Unlock Tool দিয়ে unlock করুন</span><span class="en L">Unlock with Mi Unlock Tool</span></td></tr>
+    <tr><td>Waiting for device...</td><td><span class="bn L">ফোন detect হচ্ছে না</span><span class="en L">Phone not detected</span></td><td><span class="bn L">Cable বদলান, reconnect করুন</span><span class="en L">Change cable and reconnect</span></td></tr>
+    <tr><td>FAILED (Status read failed)</td><td><span class="bn L">Cable loose</span><span class="en L">Loose cable</span></td><td><span class="bn L">Cable শক্ত করে লাগান</span><span class="en L">Firmly reconnect cable</span></td></tr>
+    <tr><td>FAILED (remote: not enough space)</td><td><span class="bn L">Storage full</span><span class="en L">Storage full</span></td><td><span class="bn L">অপ্রয়োজনীয় partition clear করুন</span><span class="en L">Clear unnecessary partitions</span></td></tr>
+    <tr><td>FAILED (remote: flash failure)</td><td><span class="bn L">ভুল partition</span><span class="en L">Wrong partition</span></td><td><span class="bn L">boot partition ঠিক আছে কিনা দেখুন</span><span class="en L">Verify you are flashing to boot partition</span></td></tr>
+    <tr><td>FAILED (remote: image too large)</td><td><span class="bn L">TWRP img বড়</span><span class="en L">TWRP img too large</span></td><td><span class="bn L">সঠিক Sunstone TWRP img নিন</span><span class="en L">Use correct Sunstone TWRP img</span></td></tr>
+    <tr><td>FAILED (remote: pre-flash validation)</td><td><span class="bn L">ভুল img file</span><span class="en L">Wrong image file</span></td><td><span class="bn L">সঠিক device এর img নিন</span><span class="en L">Use the correct device img</span></td></tr>
+    <tr><td><span class="bn L">Fastboot এ battery icon</span><span class="en L">Battery icon in Fastboot</span></td><td><span class="bn L">Charge কম</span><span class="en L">Low battery</span></td><td><span class="bn L">কমপক্ষে ৩০% charge করুন</span><span class="en L">Charge to at least 30%</span></td></tr>
+  </tbody></table></div>
+
+  <div class="tab-pane" id="tab-tw"><table class="et"><thead><tr><th><span class="bn L">সমস্যা</span><span class="en L">Error</span></th><th><span class="bn L">কারণ</span><span class="en L">Cause</span></th><th><span class="bn L">সমাধান</span><span class="en L">Solution</span></th></tr></thead><tbody>
+    <tr><td><span class="bn L">TWRP আসছে না</span><span class="en L">TWRP not booting</span></td><td><span class="bn L">ভুল Slot</span><span class="en L">Wrong slot</span></td><td><span class="bn L">fastboot set_active a দিয়ে আবার flash করুন</span><span class="en L">Run set_active a, reflash TWRP</span></td></tr>
+    <tr><td><span class="bn L">System boot হচ্ছে TWRP এর বদলে</span><span class="en L">Booting to System instead of TWRP</span></td><td><span class="bn L">Slot B active ছিল</span><span class="en L">Slot B was active</span></td><td><span class="bn L">set_active a → flash → reboot recovery</span><span class="en L">set_active a → flash → reboot recovery</span></td></tr>
+    <tr><td><span class="bn L">Flash সফল কিন্তু Black screen</span><span class="en L">Flash ok but black screen</span></td><td><span class="bn L">TWRP img corrupt</span><span class="en L">Corrupt TWRP img</span></td><td><span class="bn L">নতুন করে TWRP img download করুন</span><span class="en L">Re-download TWRP img</span></td></tr>
+    <tr><td><span class="bn L">TWRP password চাইছে</span><span class="en L">TWRP asking password</span></td><td><span class="bn L">Data encrypted</span><span class="en L">Data is encrypted</span></td><td><span class="bn L">Format Data করুন বা যেকোনো password try করুন</span><span class="en L">Do Format Data or try any password</span></td></tr>
+    <tr><td><span class="bn L">Storage দেখাচ্ছে না</span><span class="en L">Storage not visible</span></td><td><span class="bn L">Mount হয়নি</span><span class="en L">Not mounted</span></td><td><span class="bn L">TWRP → Mount → manually mount করুন</span><span class="en L">TWRP → Mount → manually mount Data</span></td></tr>
+    <tr><td><span class="bn L">Touch কাজ করছে না</span><span class="en L">Touch not working</span></td><td><span class="bn L">TWRP bug</span><span class="en L">TWRP bug</span></td><td><span class="bn L">Volume বাটন দিয়ে navigate করুন</span><span class="en L">Navigate using Volume buttons</span></td></tr>
+    <tr><td><span class="bn L">TWRP বারবার reboot</span><span class="en L">TWRP keeps rebooting</span></td><td><span class="bn L">img corrupt</span><span class="en L">Corrupt img</span></td><td><span class="bn L">নতুন TWRP img দিয়ে আবার flash করুন</span><span class="en L">Flash a fresh TWRP img</span></td></tr>
+    <tr><td><span class="bn L">Wipe stuck</span><span class="en L">Wipe stuck / frozen</span></td><td><span class="bn L">TWRP bug</span><span class="en L">TWRP bug</span></td><td><span class="bn L">Force restart করুন, আবার TWRP তে যান</span><span class="en L">Force restart, re-enter TWRP</span></td></tr>
+    <tr><td><span class="bn L">Metadata wipe fail</span><span class="en L">Metadata wipe fails</span></td><td><span class="bn L">পুরনো data</span><span class="en L">Old leftover data</span></td><td><span class="bn L">Format Data দিয়ে solve হবে</span><span class="en L">Resolved by Format Data</span></td></tr>
+    <tr><td><span class="bn L">Decrypt হচ্ছে না</span><span class="en L">Cannot decrypt</span></td><td><span class="bn L">Android 11+ encryption</span><span class="en L">Android 11+ encryption</span></td><td><span class="bn L">Format Data করুন</span><span class="en L">Perform Format Data</span></td></tr>
+  </tbody></table></div>
+
+  <div class="tab-pane" id="tab-sl"><table class="et"><thead><tr><th><span class="bn L">সমস্যা</span><span class="en L">Error</span></th><th><span class="bn L">কারণ</span><span class="en L">Cause</span></th><th><span class="bn L">সমাধান</span><span class="en L">Solution</span></th></tr></thead><tbody>
+    <tr><td><span class="bn L">Slot change হচ্ছে না</span><span class="en L">Slot won't change</span></td><td><span class="bn L">Fastboot mode এ নেই</span><span class="en L">Not in Fastboot</span></td><td><span class="bn L">Fastboot এ গিয়ে fastboot set_active a দিন</span><span class="en L">Enter Fastboot, run set_active a</span></td></tr>
+    <tr><td><span class="bn L">Active slot জানি না</span><span class="en L">Don't know active slot</span></td><td>—</td><td><span class="bn L">fastboot getvar current-slot দিয়ে চেক করুন</span><span class="en L">Run fastboot getvar current-slot</span></td></tr>
+    <tr><td><span class="bn L">Slot A তে ROM নেই</span><span class="en L">No ROM on Slot A</span></td><td><span class="bn L">ভুল slot এ flash হয়েছে</span><span class="en L">Flashed to wrong slot</span></td><td><span class="bn L">Slot A active করে আবার ROM flash করুন</span><span class="en L">Activate Slot A and reflash ROM</span></td></tr>
+    <tr><td><span class="bn L">দুই slot এ দুই ROM</span><span class="en L">Different ROM on each slot</span></td><td><span class="bn L">Confused state</span><span class="en L">Confused state</span></td><td><span class="bn L">একটি slot এ সম্পূর্ণ process নতুন করে করুন</span><span class="en L">Redo full process on one slot</span></td></tr>
+    <tr><td><span class="bn L">Slot switch পর boot loop</span><span class="en L">Boot loop after slot switch</span></td><td><span class="bn L">সে slot এ ROM নেই</span><span class="en L">No ROM on that slot</span></td><td><span class="bn L">সঠিক slot এ ROM flash করুন</span><span class="en L">Flash ROM to the correct slot</span></td></tr>
+    <tr><td><span class="bn L">TWRP তে slot দেখাচ্ছে না</span><span class="en L">Slot option missing in TWRP</span></td><td><span class="bn L">পুরনো TWRP</span><span class="en L">Outdated TWRP</span></td><td><span class="bn L">নতুন TWRP img flash করুন</span><span class="en L">Flash a newer TWRP img</span></td></tr>
+  </tbody></table></div>
+
+  <div class="tab-pane" id="tab-rf"><table class="et"><thead><tr><th><span class="bn L">Error</span><span class="en L">Error</span></th><th><span class="bn L">কারণ</span><span class="en L">Cause</span></th><th><span class="bn L">সমাধান</span><span class="en L">Solution</span></th></tr></thead><tbody>
+    <tr><td>Error 0</td><td><span class="bn L">Unknown error</span><span class="en L">Unknown error</span></td><td><span class="bn L">ROM zip আবার download করুন</span><span class="en L">Re-download ROM zip</span></td></tr>
+    <tr><td>Error 1</td><td><span class="bn L">Script error</span><span class="en L">Script error</span></td><td><span class="bn L">ROM developer এর thread দেখুন</span><span class="en L">Check ROM developer's thread</span></td></tr>
+    <tr><td>Error 7</td><td><span class="bn L">Device mismatch</span><span class="en L">Device mismatch</span></td><td><span class="bn L">Sunstone ROM নিশ্চিত করুন</span><span class="en L">Confirm ROM is for Sunstone</span></td></tr>
+    <tr><td>Error 14</td><td><span class="bn L">Mount failed</span><span class="en L">Mount failed</span></td><td><span class="bn L">TWRP এ manually mount করুন</span><span class="en L">Manually mount in TWRP</span></td></tr>
+    <tr><td>Error 70</td><td><span class="bn L">Storage full</span><span class="en L">Storage full</span></td><td><span class="bn L">অন্য ফাইল delete করুন</span><span class="en L">Delete unnecessary files</span></td></tr>
+    <tr><td>MD5 mismatch</td><td><span class="bn L">Corrupt download</span><span class="en L">Corrupt download</span></td><td><span class="bn L">আবার download করুন, MD5 verify করুন</span><span class="en L">Re-download and verify MD5</span></td></tr>
+    <tr><td>Signature verification failed</td><td><span class="bn L">TWRP signature check</span><span class="en L">TWRP signature check</span></td><td><span class="bn L">Swipe করে anyway install করুন</span><span class="en L">Swipe to install anyway</span></td></tr>
+    <tr><td><span class="bn L">Flash 99% আটকে</span><span class="en L">Stuck at 99%</span></td><td><span class="bn L">Script run হচ্ছে</span><span class="en L">Script is running</span></td><td><span class="bn L">৫ মিনিট পর্যন্ত অপেক্ষা করুন</span><span class="en L">Wait up to 5 minutes</span></td></tr>
+    <tr><td><span class="bn L">Flash 0% আটকে</span><span class="en L">Stuck at 0%</span></td><td><span class="bn L">ZIP corrupt</span><span class="en L">Corrupt ZIP</span></td><td><span class="bn L">ROM zip আবার download করুন</span><span class="en L">Re-download ROM zip</span></td></tr>
+    <tr><td><span class="bn L">ROM zip খুঁজে পাচ্ছে না</span><span class="en L">Can't find ROM zip</span></td><td><span class="bn L">ভুল storage</span><span class="en L">Wrong storage</span></td><td><span class="bn L">Memory Card / OTG সঠিকভাবে আছে কিনা দেখুন</span><span class="en L">Verify Memory Card / OTG is connected</span></td></tr>
+    <tr><td><span class="bn L">Flash মাঝপথে বন্ধ</span><span class="en L">Flash interrupted</span></td><td><span class="bn L">Cable disconnect</span><span class="en L">Cable disconnected</span></td><td><span class="bn L">আবার শুরু থেকে — Wipe → Install</span><span class="en L">Start over — Full Wipe → Install ROM</span></td></tr>
+  </tbody></table></div>
+
+  <div class="tab-pane" id="tab-bt"><table class="et"><thead><tr><th><span class="bn L">সমস্যা</span><span class="en L">Error</span></th><th><span class="bn L">কারণ</span><span class="en L">Cause</span></th><th><span class="bn L">সমাধান</span><span class="en L">Solution</span></th></tr></thead><tbody>
+    <tr><td><span class="bn L">Boot loop</span><span class="en L">Boot loop</span></td><td><span class="bn L">Format Data হয়নি</span><span class="en L">Format Data skipped</span></td><td><span class="bn L">TWRP → Wipe → Format Data → yes → Reboot</span><span class="en L">TWRP → Wipe → Format Data → yes → Reboot</span></td></tr>
+    <tr><td><span class="bn L">Logo তে আটকে</span><span class="en L">Stuck at logo</span></td><td><span class="bn L">অসম্পূর্ণ flash</span><span class="en L">Incomplete flash</span></td><td><span class="bn L">TWRP → Full Wipe → ROM flash → Format Data</span><span class="en L">TWRP → Full Wipe → ROM flash → Format Data</span></td></tr>
+    <tr><td><span class="bn L">Black screen</span><span class="en L">Black screen</span></td><td><span class="bn L">ভুল ROM</span><span class="en L">Wrong ROM</span></td><td><span class="bn L">সঠিক Sunstone ROM দিয়ে flash করুন</span><span class="en L">Flash correct Sunstone ROM</span></td></tr>
+    <tr><td><span class="bn L">Boot animation শেষ হচ্ছে না</span><span class="en L">Boot animation never finishes</span></td><td><span class="bn L">প্রথম boot স্বাভাবিক</span><span class="en L">Normal on first boot</span></td><td><span class="bn L">১০-১৫ মিনিট অপেক্ষা করুন</span><span class="en L">Wait 10–15 minutes</span></td></tr>
+    <tr><td><span class="bn L">Safe mode এ boot</span><span class="en L">Booting to Safe Mode</span></td><td><span class="bn L">Volume বাটন চাপা ছিল</span><span class="en L">Volume button held during boot</span></td><td><span class="bn L">Reboot করুন, Volume বাটনে হাত না রাখুন</span><span class="en L">Reboot without pressing Volume button</span></td></tr>
+    <tr><td><span class="bn L">ফোন গরম হয়ে বন্ধ</span><span class="en L">Phone overheats & shuts off</span></td><td><span class="bn L">Boot loop এর heat</span><span class="en L">Boot loop causing heat</span></td><td><span class="bn L">TWRP → Format Data → আবার try</span><span class="en L">TWRP → Format Data → try again</span></td></tr>
+    <tr><td><span class="bn L">Hard brick</span><span class="en L">Hard brick</span></td><td><span class="bn L">Baseband মুছে গেছে</span><span class="en L">Baseband erased</span></td><td><span class="bn L">Service center অথবা EDL restore</span><span class="en L">Service center or EDL restore</span></td></tr>
+    <tr><td><span class="bn L">Soft brick</span><span class="en L">Soft brick</span></td><td><span class="bn L">ROM issue</span><span class="en L">ROM issue</span></td><td><span class="bn L">TWRP থেকে আবার flash করুন</span><span class="en L">Reflash from TWRP</span></td></tr>
+    <tr><td><span class="bn L">Vibrate কিন্তু screen নেই</span><span class="en L">Vibrates but no display</span></td><td><span class="bn L">Display driver issue</span><span class="en L">Display driver issue</span></td><td><span class="bn L">Power ১০ সেকেন্ড চেপে force restart</span><span class="en L">Hold Power 10s to force restart</span></td></tr>
+  </tbody></table></div>
+
+  <div class="tab-pane" id="tab-mg"><table class="et"><thead><tr><th><span class="bn L">সমস্যা</span><span class="en L">Error</span></th><th><span class="bn L">কারণ</span><span class="en L">Cause</span></th><th><span class="bn L">সমাধান</span><span class="en L">Solution</span></th></tr></thead><tbody>
+    <tr><td><span class="bn L">Magisk এর পর boot loop</span><span class="en L">Boot loop after Magisk</span></td><td><span class="bn L">Incompatible version</span><span class="en L">Incompatible version</span></td><td><span class="bn L">পুরনো stable version try করুন (v26.x)</span><span class="en L">Try older stable version (v26.x)</span></td></tr>
+    <tr><td><span class="bn L">Direct Install কাজ করছে না</span><span class="en L">Direct Install failing</span></td><td><span class="bn L">ROM restriction</span><span class="en L">ROM restriction</span></td><td><span class="bn L">boot.img patch করে flash করুন</span><span class="en L">Patch boot.img and flash via Fastboot</span></td></tr>
+    <tr><td><span class="bn L">Root নেই কিন্তু Magisk আছে</span><span class="en L">No root but Magisk installed</span></td><td><span class="bn L">Install সম্পূর্ণ হয়নি</span><span class="en L">Install incomplete</span></td><td><span class="bn L">Magisk → Install → Direct Install → Reboot</span><span class="en L">Magisk → Install → Direct Install → Reboot</span></td></tr>
+    <tr><td><span class="bn L">Apps root পাচ্ছে না</span><span class="en L">Apps not getting root</span></td><td><span class="bn L">SuperUser off</span><span class="en L">SuperUser disabled</span></td><td><span class="bn L">Magisk → SuperUser → App allow করুন</span><span class="en L">Magisk → SuperUser → Allow app</span></td></tr>
+    <tr><td><span class="bn L">Module এর কারণে boot loop</span><span class="en L">Boot loop from module</span></td><td><span class="bn L">Bad module</span><span class="en L">Bad module</span></td><td><span class="bn L">/data/adb/modules/[name] → disable file তৈরি করুন</span><span class="en L">Create a "disable" file in /data/adb/modules/[name]</span></td></tr>
+    <tr><td>SafetyNet fail</td><td><span class="bn L">ROM uncertified</span><span class="en L">ROM uncertified</span></td><td><span class="bn L">MagiskHide Props Config module install করুন</span><span class="en L">Install MagiskHide Props Config module</span></td></tr>
+    <tr><td>Play Integrity fail</td><td><span class="bn L">Google policy</span><span class="en L">Google policy change</span></td><td><span class="bn L">Play Integrity Fix module install করুন</span><span class="en L">Install Play Integrity Fix module</span></td></tr>
+    <tr><td><span class="bn L">Zygisk কাজ করছে না</span><span class="en L">Zygisk not working</span></td><td><span class="bn L">Off আছে</span><span class="en L">Disabled</span></td><td><span class="bn L">Magisk → Settings → Zygisk on করুন</span><span class="en L">Magisk → Settings → Enable Zygisk</span></td></tr>
+    <tr><td><span class="bn L">Magisk app নেই</span><span class="en L">Magisk app missing</span></td><td><span class="bn L">APK install হয়নি</span><span class="en L">APK not installed</span></td><td><span class="bn L">Magisk APK manually install করুন</span><span class="en L">Manually install Magisk APK</span></td></tr>
+  </tbody></table></div>
+
+  <div class="tab-pane" id="tab-pi"><table class="et"><thead><tr><th><span class="bn L">সমস্যা</span><span class="en L">Error</span></th><th><span class="bn L">কারণ</span><span class="en L">Cause</span></th><th><span class="bn L">সমাধান</span><span class="en L">Solution</span></th></tr></thead><tbody>
+    <tr><td><span class="bn L">SIM কাজ করছে না</span><span class="en L">SIM not working</span></td><td><span class="bn L">APN setting নেই</span><span class="en L">No APN configured</span></td><td><span class="bn L">Manual APN configure করুন</span><span class="en L">Configure APN manually</span></td></tr>
+    <tr><td><span class="bn L">5G কাজ করছে না</span><span class="en L">5G not working</span></td><td><span class="bn L">Band issue</span><span class="en L">Band issue</span></td><td><span class="bn L">Settings → Network → 5G manually select করুন</span><span class="en L">Settings → Network → manually select 5G</span></td></tr>
+    <tr><td><span class="bn L">WiFi 5GHz নেই</span><span class="en L">WiFi 5GHz missing</span></td><td><span class="bn L">ROM bug</span><span class="en L">ROM bug</span></td><td><span class="bn L">2.4GHz use করুন বা ROM update করুন</span><span class="en L">Use 2.4GHz or update ROM</span></td></tr>
+    <tr><td><span class="bn L">Fingerprint কাজ করছে না</span><span class="en L">Fingerprint not working</span></td><td><span class="bn L">Re-enroll করতে হবে</span><span class="en L">Needs re-enrollment</span></td><td><span class="bn L">Settings → Fingerprint → আবার add করুন</span><span class="en L">Settings → Fingerprint → add again</span></td></tr>
+    <tr><td><span class="bn L">Notification আসছে না</span><span class="en L">Notifications missing</span></td><td><span class="bn L">Battery optimization</span><span class="en L">Battery optimization</span></td><td><span class="bn L">Settings → Battery → App optimization off করুন</span><span class="en L">Settings → Battery → disable optimization for app</span></td></tr>
+    <tr><td><span class="bn L">Apps crash হচ্ছে</span><span class="en L">Apps crashing</span></td><td><span class="bn L">Data conflict</span><span class="en L">Data conflict</span></td><td><span class="bn L">Settings → App → Clear data করুন</span><span class="en L">Settings → App → Clear data</span></td></tr>
+    <tr><td><span class="bn L">Battery drain বেশি</span><span class="en L">Excessive battery drain</span></td><td><span class="bn L">Background apps</span><span class="en L">Background processes</span></td><td><span class="bn L">Greenify বা Naptime module use করুন</span><span class="en L">Use Greenify or Naptime Magisk module</span></td></tr>
+    <tr><td><span class="bn L">Camera কাজ করছে না</span><span class="en L">Camera not working</span></td><td><span class="bn L">ROM issue</span><span class="en L">ROM issue</span></td><td><span class="bn L">Stock camera app try করুন</span><span class="en L">Try stock camera app</span></td></tr>
+    <tr><td><span class="bn L">SD card দেখাচ্ছে না</span><span class="en L">SD card not visible</span></td><td><span class="bn L">Mount হয়নি</span><span class="en L">Not mounted</span></td><td><span class="bn L">TWRP → Mount → MicroSD mount করুন</span><span class="en L">TWRP → Mount → mount MicroSD</span></td></tr>
+    <tr><td><span class="bn L">ফোন অনেক গরম</span><span class="en L">Phone runs very hot</span></td><td><span class="bn L">ROM unoptimized</span><span class="en L">ROM not optimized</span></td><td><span class="bn L">Custom kernel বা অন্য ROM try করুন</span><span class="en L">Try custom kernel or different ROM</span></td></tr>
+    <tr><td><span class="bn L">Internal storage কম দেখাচ্ছে</span><span class="en L">Internal storage showing less</span></td><td><span class="bn L">Format হয়নি ঠিকমতো</span><span class="en L">Format not done properly</span></td><td><span class="bn L">TWRP → Format Data → আবার Reboot</span><span class="en L">TWRP → Format Data → reboot again</span></td></tr>
+    <tr><td><span class="bn L">Screen rotation কাজ করছে না</span><span class="en L">Screen rotation not working</span></td><td><span class="bn L">Sensor issue</span><span class="en L">Sensor issue</span></td><td><span class="bn L">Settings → Display → Auto rotate on করুন</span><span class="en L">Settings → Display → enable Auto-rotate</span></td></tr>
+  </tbody></table></div>
+
+  <div class="tab-pane" id="tab-ga"><table class="et"><thead><tr><th><span class="bn L">সমস্যা</span><span class="en L">Error</span></th><th><span class="bn L">কারণ</span><span class="en L">Cause</span></th><th><span class="bn L">সমাধান</span><span class="en L">Solution</span></th></tr></thead><tbody>
+    <tr><td><span class="bn L">Play Store নেই</span><span class="en L">No Play Store</span></td><td><span class="bn L">GApps flash হয়নি</span><span class="en L">GApps not flashed</span></td><td><span class="bn L">TWRP → GApps zip flash করুন</span><span class="en L">Flash GApps zip via TWRP</span></td></tr>
+    <tr><td><span class="bn L">GApps flash এ error</span><span class="en L">GApps flash error</span></td><td><span class="bn L">ভুল GApps variant</span><span class="en L">Wrong GApps variant</span></td><td><span class="bn L">ARM64 ও Android version মিলিয়ে নিন</span><span class="en L">Match ARM64 variant to your Android version</span></td></tr>
+    <tr><td><span class="bn L">Google account sync হচ্ছে না</span><span class="en L">Google account not syncing</span></td><td><span class="bn L">GApps incomplete</span><span class="en L">Incomplete GApps</span></td><td><span class="bn L">NikGapps বা MindTheGapps try করুন</span><span class="en L">Try NikGapps or MindTheGapps</span></td></tr>
+    <tr><td><span class="bn L">Play Store crash</span><span class="en L">Play Store crashing</span></td><td><span class="bn L">GApps conflict</span><span class="en L">GApps conflict</span></td><td><span class="bn L">GApps আবার flash করুন</span><span class="en L">Reflash GApps</span></td></tr>
+    <tr><td><span class="bn L">GApps boot loop</span><span class="en L">GApps boot loop</span></td><td><span class="bn L">ROM incompatible</span><span class="en L">Incompatible GApps</span></td><td><span class="bn L">Pico বা Nano variant try করুন</span><span class="en L">Try Pico or Nano variant</span></td></tr>
+    <tr><td><span class="bn L">Google Services battery drain</span><span class="en L">Google Services battery drain</span></td><td><span class="bn L">Background sync</span><span class="en L">Aggressive background sync</span></td><td><span class="bn L">Settings → Accounts → Auto sync off করুন</span><span class="en L">Settings → Accounts → disable auto-sync</span></td></tr>
+  </tbody></table></div>
+
+</section>
+
+<!-- ── SECTION 05: QUICK FIX ── -->
+<section class="sec" id="qf">
+  <div class="sec-label"><span class="sec-num">05</span><div class="sec-line"></div></div>
+  <h2 class="sec-title"><span class="bn L">Emergency Quick Fix</span><span class="en L">Emergency Quick Fix</span></h2>
+  <p class="sec-sub"><span class="bn L">সমস্যা হলে সরাসরি এখান থেকে সমাধান নিন</span><span class="en L">Instant solutions for critical issues</span></p><br>
+  <div class="qf-grid">
+
+    <div class="qfc t-r">
+      <div class="qfc-hd"><span class="qfc-ico">🔴</span><div class="qfc-t"><span class="bn L">Hard Brick — কিছুই হচ্ছে না</span><span class="en L">Hard Brick — Nothing works</span></div></div>
+      <div class="qfc-bd"><ul class="qfc-steps">
+        <li><span class="ar">→</span><span class="bn L">EDL Mode এ যান (Vol Down + Power)</span><span class="en L">Enter EDL Mode (Vol Down + Power)</span></li>
+        <li><span class="ar">→</span><span class="bn L">PC তে MiFlash Tool open করুন</span><span class="en L">Open MiFlash Tool on PC</span></li>
+        <li><span class="ar">→</span><span class="bn L">Sunstone Stock Fastboot ROM load করুন</span><span class="en L">Load Sunstone Stock Fastboot ROM</span></li>
+        <li><span class="ar">→</span><span class="bn L">Flash All করুন</span><span class="en L">Click Flash All</span></li>
+      </ul></div>
+    </div>
+
+    <div class="qfc t-a">
+      <div class="qfc-hd"><span class="qfc-ico">🟠</span><div class="qfc-t"><span class="bn L">Soft Brick — Boot হচ্ছে না</span><span class="en L">Soft Brick — Won't boot</span></div></div>
+      <div class="qfc-bd"><ul class="qfc-steps">
+        <li><span class="ar">→</span><span class="bn L">Fastboot mode এ যান</span><span class="en L">Enter Fastboot mode</span></li>
+        <li><span class="ar">→</span>fastboot set_active a</li>
+        <li><span class="ar">→</span><span class="bn L">TWRP flash করুন</span><span class="en L">Flash TWRP</span></li>
+        <li><span class="ar">→</span><span class="bn L">Full Wipe → ROM flash → Format Data</span><span class="en L">Full Wipe → ROM flash → Format Data</span></li>
+      </ul></div>
+    </div>
+
+    <div class="qfc t-y">
+      <div class="qfc-hd"><span class="qfc-ico">🟡</span><div class="qfc-t"><span class="bn L">Boot Loop — বারবার Restart</span><span class="en L">Boot Loop — Keeps restarting</span></div></div>
+      <div class="qfc-bd"><ul class="qfc-steps">
+        <li><span class="ar">→</span><span class="bn L">TWRP এ যান</span><span class="en L">Enter TWRP</span></li>
+        <li><span class="ar">→</span><span class="bn L">Wipe → Format Data → yes</span><span class="en L">Wipe → Format Data → yes</span></li>
+        <li><span class="ar">→</span><span class="bn L">Reboot System</span><span class="en L">Reboot System</span></li>
+        <li><span class="ar">→</span><span class="bn L">কাজ না হলে ROM আবার flash করুন</span><span class="en L">If failing — reflash ROM completely</span></li>
+      </ul></div>
+    </div>
+
+    <div class="qfc t-b">
+      <div class="qfc-hd"><span class="qfc-ico">🔵</span><div class="qfc-t"><span class="bn L">TWRP আসছে না</span><span class="en L">TWRP Not Booting</span></div></div>
+      <div class="qfc-bd"><ul class="qfc-steps">
+        <li><span class="ar">→</span>fastboot getvar current-slot</li>
+        <li><span class="ar">→</span>fastboot set_active a</li>
+        <li><span class="ar">→</span>fastboot flash boot twrp_recovery.img</li>
+        <li><span class="ar">→</span>fastboot reboot recovery</li>
+      </ul></div>
+    </div>
+
+    <div class="qfc t-g">
+      <div class="qfc-hd"><span class="qfc-ico">🟢</span><div class="qfc-t"><span class="bn L">Device Detect হচ্ছে না</span><span class="en L">Device Not Detected</span></div></div>
+      <div class="qfc-bd"><ul class="qfc-steps">
+        <li><span class="ar">→</span><span class="bn L">OTG cable খুলুন</span><span class="en L">Unplug OTG cable</span></li>
+        <li><span class="ar">→</span><span class="bn L">অন্য OTG cable try করুন</span><span class="en L">Try a different OTG cable</span></li>
+        <li><span class="ar">→</span><span class="bn L">Bugjaeger force stop → reopen</span><span class="en L">Force stop Bugjaeger → reopen</span></li>
+        <li><span class="ar">→</span><span class="bn L">ফোন Fastboot mode এ আছে কিনা দেখুন</span><span class="en L">Verify phone is in Fastboot mode</span></li>
+      </ul></div>
+    </div>
+
+    <div class="qfc t-k">
+      <div class="qfc-hd"><span class="qfc-ico">⚫</span><div class="qfc-t"><span class="bn L">সব চেষ্টা ব্যর্থ</span><span class="en L">Everything Failed</span></div></div>
+      <div class="qfc-bd"><ul class="qfc-steps">
+        <li><span class="ar">→</span>xiaomifirmwareupdater.com</li>
+        <li><span class="ar">→</span><span class="bn L">Sunstone Fastboot ROM download করুন</span><span class="en L">Download Sunstone Fastboot ROM</span></li>
+        <li><span class="ar">→</span><span class="bn L">MiFlash দিয়ে Stock ROM flash করুন</span><span class="en L">Flash Stock ROM using MiFlash</span></li>
+        <li><span class="ar">→</span><span class="bn L">ফোন আবার আগের মতো হবে ✅</span><span class="en L">Phone fully restored to stock ✅</span></li>
+      </ul></div>
+    </div>
+
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div>
+    <div class="ft-brand">Sunstone <span>ROM</span> Guide</div>
+    <div class="ft-meta">Redmi Note 12 5G · Bugjaeger + TWRP</div>
+  </div>
+  <div class="ft-chips">
+    <div class="ft-chip">A/B Partition</div>
+    <div class="ft-chip">SD 4 Gen 1</div>
+    <div class="ft-chip">11 Steps</div>
+    <div class="ft-chip">80+ Fixes</div>
+  </div>
+</footer>
+
+<button id="st" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+// ── LANG SYSTEM ──
+const SAVED = localStorage.getItem('lang') || 'bn';
+setLang(SAVED, false);
+
+function setLang(l, save=true) {
+  document.body.className = l + (l==='en' ? ' en' : '');
+  document.documentElement.lang = l==='bn'?'bn':'en';
+  document.getElementById('btn-bn').classList.toggle('on', l==='bn');
+  document.getElementById('btn-en').classList.toggle('on', l==='en');
+  if(save) localStorage.setItem('lang', l);
+}
+
+// ── PROGRESS ──
+window.addEventListener('scroll',()=>{
+  const p=(window.scrollY/(document.body.scrollHeight-innerHeight))*100;
+  document.getElementById('pg').style.width=p+'%';
+  document.getElementById('st').classList.toggle('show',window.scrollY>400);
+});
+
+// ── STEPS ──
+function ts(h){h.parentElement.classList.toggle('open')}
+
+// ── TABS ──
+function stab(id,btn){
+  document.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('on'));
+  document.getElementById('tab-'+id).classList.add('on');
+  btn.classList.add('on');
+}
+
+// ── CHECKLIST ──
+function tc(item){item.classList.toggle('ck')}
+
+// ── COPY ──
+function cp(btn){
+  const t=btn.parentElement.innerText.replace(/COPY|COPIED!/g,'').trim();
+  navigator.clipboard.writeText(t).then(()=>{
+    btn.textContent='COPIED!';
+    setTimeout(()=>btn.textContent='COPY',2000);
+  }).catch(()=>{});
+}
+</script>
+</body>
+</html>
